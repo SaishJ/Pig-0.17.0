@@ -3,8 +3,8 @@
 Pig WordCount Commands
 
 ```
-input = LOAD '/path/to/file/' AS(line:Chararray);
-Words = FOREACH input GENERATE FLATTEN(TOKENIZE(line,' ')) AS word;
-Grouped = GROUP Words BY word;
-wordcount = FOREACH Grouped GENERATE group, COUNT(Words); 
+lines = LOAD '/path/to/file/' AS(line:Chararray);
+words = foreach lines GENERATE FLATTEN(TOKENIZE(line)) as word;
+grouped = GROUP words by word;
+wordcount = foreach grouped GENERATE group . COUNT(words); 
 ```
